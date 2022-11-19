@@ -28,7 +28,7 @@ const productExceptSelf = (nums: number[]): number[] => {
 
 const originalList1 = [1, 2, 3, 4, 5]
 const originalList2 = [3, 2, 1]
-const originalList3 = [3, 2, 2]
+const originalList3 = [-3, 2, 2]
 const originalList4 = [3, 2, 0]
 
 console.log(productExceptSelf(originalList1))

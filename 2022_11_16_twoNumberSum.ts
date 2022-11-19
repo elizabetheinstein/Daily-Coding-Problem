@@ -13,21 +13,6 @@ const twoNumberSumBruteForce = (list: number[], k: number) => {
     return false
 }
 
-// linked list
-// O(n^2) time
-// O(1) space
-const twoNumberSumLinkedList = (list: number[], k: number) => {
-    let current = 0
-    let next = 1
-
-    while (current < list.length) {
-        if (list[current] + list[next] === k) return true
-        else if (next < list.length - 1) next++
-        else current++
-    }
-    return false
-}
-
 // caching with a set
 // O(n) time
 // O(1) lookup
