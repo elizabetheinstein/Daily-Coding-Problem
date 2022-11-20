@@ -7,26 +7,24 @@
 
 const firstMissingPositive = (nums: number[]): number => {
   
-  // :type nums: List[int]
-  // :rtype: int
-  //  Basic idea:
-  // 1. for any array whose length is l, the first missing positive must be in range [1,...,l+1], 
-  //     so we only have to care about those elements in this range and remove the rest.
-  // 2. we can use the array index as the hash to restore the frequency of each number within 
-  //      the range [1,...,l+1] 
+  // First, we need to understand that the first missing positive number is less than or equal to n (length of array) except for one case. The explanation is in the above.
+    // We will position every positive integer in the array at its corresponding index
+    // ex) 1 at index 0, 2 at index 1, 3 at index 2
+    // In this way, the array can position all integers that are less than or equal to n at their corresponding indices without changing the size of given array.
+    // Therefore, we can find the first missing positive integer by scanning through the array.
 
-  nums.push(0)
-  const n = nums.length
-  // delete the unnecessary elements
-  for (let i = 0; i < n; i++) {
-    if (nums[i] < 0 || nums[i] >= n) nums[i] = 0
+  for (let i = 0; i < nums.length; i++) {
+    let idx = nums[i] - 1
+    if (i == idx || nums[i] == nums[idx]) continue // already positioned or nums[i] is a duplicate
+    if (idx >= 0 && idx <= nums.length - 1) {
+      [nums[i], nums[idx]] = [nums[idx], nums[i]]
+      i-- // check the swapped number
+    }
   }
   // use the index as the hash to record the frequency of each number
-  for (let i = 0; i < n; i++) {
-    nums[nums[i] % n] += n
+  for (let i = 0; i < nums.length; i++) {
+    if (i + 1 == nums[i]) continue
+    else return i + 1
   }
-  for (let i = 1; i < n; i++) {
-    if (nums[i] / n == 0) return i
-  }
-  return n
+  return nums.length + 1
 }
